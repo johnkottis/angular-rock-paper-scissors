@@ -1,0 +1,36 @@
+
+/***
+*
+*  1. Statistics
+*
+***/
+
+@import 'vars';
+/******************    1. Statistics  ******************/
+
+.game-results-list {
+	display: block;
+	float: left;
+	height: 10px;
+	width: 100%;
+
+	li {
+		box-sizing: border-box;
+		clear: none;
+		display: block;
+		height: 3px;
+		float: left;
+
+		&.user {
+			background-color: $green;
+		}
+
+		&.draw {
+			background-color: $blue;
+		}
+
+		&.cpu {
+			background-color: $red;
+		}
+	}
+}

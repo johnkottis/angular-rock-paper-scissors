@@ -1,0 +1,21 @@
+/***
+*
+*  1. Skeleton Styles
+*
+***/
+
+@import 'vars';
+@import 'material-iconic';
+
+/******************    1. Skeleton Styles  ******************/
+@media (max-width: 700px) {
+	.row .col-half {
+		margin: 0;
+		width: 100%;
+	}
+
+	.rps-grid-wrapper .rps-grid > thead > tr > th,
+	.rps-grid-wrapper .rps-grid > tbody > tr > td {
+		font-size: 9px;
+	}
+}

@@ -1,0 +1,29 @@
+/***
+*
+*  1. Alerts
+*       1.1 info
+*
+***/
+
+@import 'vars';
+/******************    1. Alerts  ******************/
+
+.alert {
+    border-radius: 2px;
+    font-size: 13px;
+    left: 50%;
+    padding: 15px 35px 10px 30px;
+    position: absolute;
+    top: 20px;
+    transform: translateX(-50%);
+    width: auto;
+    z-index: 10;
+}
+
+/******************    1.4 info  ******************/
+
+.alert-info {
+    background-color: rgba(33, 150, 243, .7);
+    border-color: transparent;
+    color: $white;
+}

@@ -1,0 +1,203 @@
+<!doctype html>
+<html class="no-js" lang="en-GB">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+   <!-- SEO Metatags -->
+   <title>RPS Master</title>
+   <meta name="description" content="rock paper scissors web application">
+   <meta name="keywords" content="rock, paper, scissors">
+   <!-- Favicon -->
+   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+   <link rel="icon" type="image/png" href="public/img/favicon-32x32.png" sizes="32x32">
+   <link rel="icon" type="image/png" href="public/img/favicon-16x16.png" sizes="16x16">
+   <link rel="manifest" href="public/img/manifest.json">
+   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+   <meta name="theme-color" content="#ffffff">
+   <!-- Styles -->
+   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&subset=greek,latin-ext,vietnamese" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link href="public/css/main.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="rps">
+   <!-- Main Header -->
+   <header class="rps-header">
+      <aside class="left-side">
+         <h1 class="rps-logo">
+            <a href="#" title="RPS Master">RPS<span>Master</span></a>
+         </h1>
+      </aside>
+   </header>
+   <main ng-app="rpsApp" ng-controller="rpsCtrl">
+      <!-- Game Controls -->
+      <nav class="main-navigation left-side">
+         <ul id="navigationList" class="navigation-list">
+            <li>
+               <a href="#" id="startGame" ng-click="startGame()" title="Start game" ng-disabled="gameIsActive">
+                  <i class="zmdi zmdi-play"></i>
+                  <span ng-show="newGame">Start</span>
+                  <span ng-hide="newGame">Continue</span>
+               </a>
+            </li>
+            <li ng-hide="newGame">
+               <a href="#" id="resetGame" ng-click="resetGame()" title="Reset history">
+                  <i class="zmdi zmdi-replay"></i>Restart 
+               </a>
+            </li>
+            <li ng-hide="newGame">
+               <a href="#" id="stopPlaying" ng-click="resetGame(); stopGame();" title="Stop playing">
+                  <i class="zmdi zmdi-stop"></i>Stop 
+               </a>
+            </li>
+         </ul>
+      </nav>
+      <!-- Game Panel -->
+      <section class="main-application right-side">
+         <!-- Grid System -->
+         <h2>Rock, Paper, Scissors Simulator</h2>
+         <!-- Players -->
+         <section class="row players">
+            <!-- Human Block -->
+            <div class="col-half text-center">
+               <header>
+                  <h3>User</h3>
+               </header>
+               <img class="move" ng-src="{{ 'dist/images/' + userSelection + '.png' }}"  alt="user move">
+               <!-- Humans Actions -->
+               <footer>
+                  <ul class="row">
+                     <li>
+                        <a href="#" ng-click="user($event);" data-selection="0" title="Rock">R</a>
+                     </li>
+                     <li>
+                        <a href="#" ng-click="user($event);" data-selection="1" title="Paper">P</a>
+                     </li>
+                     <li>
+                        <a href="#" ng-click="user($event);" data-selection="2" title="Scissors">S</a>
+                     </li>
+                  </ul>
+               </footer>
+            </div>
+            <!-- CPU Block -->
+            <div class="col-half text-center">
+               <header>
+                  <h3>CPU</h3>
+               </header>
+               <img class="move" ng-src="{{ 'dist/images/' + currentDecision + '.png'}}" ng-show="showCpu" alt="cpu move">
+               <div class="loader" ng-hide="showCpu">
+                     <svg class="circular" viewBox="25 25 50 50">
+                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                     </svg>
+                  </div>
+            </div>
+         </section>
+         <!-- Statistics -->
+         <!-- Games History -->
+         <div class="row" ng-show="Games.length > 0">
+            <h4 class="col-full" >Statistics</h4>
+         </div>
+         <div class="row" ng-show="Games.length > 0">
+            <ul class="game-results-list col-full ">
+               <li class="user" style="{{ 'width: ' + HistoryPercent[2].userPercent + '%' }}"></li>
+               <li class="draw" style="{{ 'width: ' + HistoryPercent[2].drawPercent + '%' }}"></li>
+               <li class="cpu" style="{{ 'width: ' + HistoryPercent[2].cpuPercent + '%' }}"></li>
+            </ul>
+         </div>
+         <div class="row" ng-show="Games.length > 0">
+            <div class="rps-grid-wrapper col-half">
+               <table class="rps-grid">
+                  <thead>
+                     <tr>
+                        <th colspan="3" class="text-center">Results</th>
+                     </tr>
+                     <tr>
+                        <th>User Wins</th>
+                        <th>CPU Wins</th>
+                        <th>Draws</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr >
+                        <td>{{ HistoryPercent[2].user + '(' + HistoryPercent[2].userPercent.toFixed(2) + '%)' }}</td>
+                        <td>{{ HistoryPercent[2].cpu + '(' + HistoryPercent[2].cpuPercent.toFixed(2) + '%)' }}</td>
+                        <td>{{ HistoryPercent[2].draw + '(' + HistoryPercent[2].drawPercent.toFixed(2) + '%)' }}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+
+            <div class="rps-grid-wrapper col-half ">
+               <table class="rps-grid">
+                  <thead>
+                     <tr>
+                        <th colspan="3" class="text-center">History</th>
+                     </tr>
+                     <tr>
+                        <th>User</th>
+                        <th>CPU</th>
+                        <th>Winner</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat="stats in Games track by $index">
+                        <td>{{ stats.userM }}</td>
+                        <td>{{ stats.cpuM }}</td>
+                        <td>{{ stats.winner }}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+
+
+         <div class="row" ng-show="Games.length > 0">
+            <div class="rps-grid-wrapper col-half">
+               <table class="rps-grid">
+                  <thead>
+                     <tr>
+                        <th colspan="3" class="text-center">User Moves</th>
+                     </tr>
+                     <tr>
+                        <th>Rock</th>
+                        <th>Paper</th>
+                        <th>Scissors</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>{{ HistoryPercent[0].R + '(' + HistoryPercent[0].RPercent.toFixed(2) + '%)'}}</td>
+                        <td>{{ HistoryPercent[0].P + '(' + HistoryPercent[0].PPercent.toFixed(2) + '%)'}}</td>
+                        <td>{{ HistoryPercent[0].S + '(' + HistoryPercent[0].SPercent.toFixed(2) + '%)'}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+            <div class="rps-grid-wrapper col-half">
+               <table class="rps-grid">
+                  <thead>
+                     <tr>
+                        <th colspan="3" class="text-center">CPU Moves</th>
+                     </tr>
+                     <tr>
+                        <th>Rock</th>
+                        <th>Paper</th>
+                        <th>Scissors</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>{{ HistoryPercent[1].R + '(' + HistoryPercent[1].RPercent.toFixed(2) + '%)'}}</td>
+                        <td>{{ HistoryPercent[1].P + '(' + HistoryPercent[1].PPercent.toFixed(2) + '%)'}}</td>
+                        <td>{{ HistoryPercent[1].S + '(' + HistoryPercent[1].SPercent.toFixed(2) + '%)'}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         </section>
+         <!-- Notifications -->
+         <div class="alert alert-info" ng-show="showCpu" role="alert">{{ 'Result: ' + Games[0].winner + '. Play more and become the master of RPC.' }}</div>
+      </main>
+      <script src="public/js/scripts.min.js"></script>
+   </body>
+   </html>

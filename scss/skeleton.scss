@@ -1,0 +1,126 @@
+/***
+*
+*  1. Skeleton Styles
+*       1.1 Main Header
+*           1.1.1 Logo
+*       1.2 Main Area
+*           1.2.1 Main Navigation
+*           1.2.1 Application Area
+*  2. Standard Layouts
+*
+***/
+
+@import 'vars';
+@import 'material-iconic';
+
+/******************    1. Skeleton Styles  ******************/
+html {
+    background: $grey-light;
+	font-family: $roboto;
+    font-size: 13px;
+    height: 100%;
+    line-height: 1.4;
+    width: 100%;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.rps {
+	height: 100%;
+    width: 100%;
+
+    /******************    1.1 Main Header  ******************/
+    .rps-header {
+        background: $grey-header;
+        box-shadow: 0 1px 4px $shadow-header;
+        box-sizing: border-box;
+        flex: 0 64px;
+        display: flex;
+        height: 70px;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 2;
+
+        /******************    1.1.1 Logo  ******************/
+        .rps-logo {
+            background-color: $grey-logo;
+            box-sizing: border-box;
+            height: 100%;
+            margin: 0;
+            padding: 20px 0 0;
+            width: 268px;
+
+            &:hover {
+                text-decoration: none;
+            }
+
+            a {
+                color: $white;
+                display: inline-block;
+                font-size: 25px;
+                font-weight: 700;
+                line-height: 1;
+                padding: 0 10px 0 20px;
+
+                span {
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+
+
+    /******************    1.2 Main Area  ******************/
+    main {
+        padding-top: 70px;
+
+        /******************    1.2.1 Main Navigation  ******************/
+        .main-navigation {
+            background: $white;
+            box-sizing: border-box;
+            float: left;
+            display: inline-block;
+            width: 100%;
+        }
+
+        /******************    1.2.1 Application Area  ******************/
+        .main-application {
+            box-sizing: border-box;
+            float: left;
+            padding: 20px;
+            position: relative;
+            width: 100%;
+
+            .players {
+                background: #fff;
+                box-sizing: border-box;
+                padding: 20px;
+            }
+        }
+    }
+}
+
+/******************    2. Standard Layouts  ******************/
+.row {
+    box-sizing: border-box;
+    float: left;
+    margin: 10px 1%;
+    width: 98%;
+
+    .col-full {
+        box-sizing: border-box;
+        float: left;
+        width: 100%;
+    }
+
+    .col-half {
+        box-sizing: border-box;
+        float: left;
+        margin: 0 1%;
+        width: 48%;
+    }
+}

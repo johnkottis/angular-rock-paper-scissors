@@ -1,0 +1,23 @@
+{
+  "name": "NgRPS",
+  "version": "1.0.0",
+  "author": "John Kottis",
+  "private": true,
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "babel-cli": "^6.16.0",
+    "babel-eslint": "^4.1.6",
+    "babel-preset-es2015": "^6.16.0",
+    "grunt-babel": "^6.0.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-csso": "^2.0.1",
+    "grunt-eslint": "^19.0.0",
+    "grunt-sass": "^1.2.1",
+    "grunt-sass-lint": "^0.2.0",
+    "matchdep": "^1.0.1"
+  },
+  "dependencies": {}
+}
